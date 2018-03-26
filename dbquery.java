@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,9 +18,17 @@ public class dbquery{
 
     private static void readArray(){
         try{
+            Page page = null;
             FileInputStream fos = new FileInputStream(inFile);
             ObjectInputStream stream = new ObjectInputStream(fos);
-            heap = (ArrayList<Page>)stream.readObject();
+            while(true){
+                try{
+                    page = (Page)stream.readObject();
+                }catch(EOFException e){
+                    break;
+                }
+                heap.add(page);
+            }
             System.out.println(heap.size());
         }catch(FileNotFoundException fnf){
             System.out.println(fnf.getMessage());
@@ -38,15 +47,14 @@ public class dbquery{
 
     //MAIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public static void main(String[] args) {
-        System.out.println(args.length);
         if(args.length > 1){
             try{
                 pagesize = convert(args[1]);
+                inFile = new File("heap."+pagesize);
             }catch(java.lang.NumberFormatException pe){
                 System.out.println(pe.getMessage());
             }
         }
-        
-        inFile = new File(args[0]);
+        readArray();
     }
 }
