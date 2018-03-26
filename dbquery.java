@@ -1,4 +1,9 @@
-import javax.sound.midi.SysexMessage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class dbquery{
     private static File inFile = null;
@@ -11,9 +16,17 @@ public class dbquery{
     }
 
     private static void readArray(){
-        BufferedReader reader = new BufferedReader(new FileReader(inFile));
-        while ((line = reader.readLine()) != null) {
-            
+        try{
+            FileInputStream fos = new FileInputStream(inFile);
+            ObjectInputStream stream = new ObjectInputStream(fos);
+            heap = (ArrayList<Page>)stream.readObject();
+            System.out.println(heap.size());
+        }catch(FileNotFoundException fnf){
+            System.out.println(fnf.getMessage());
+        }catch(IOException ioe){
+            System.out.println(ioe.getMessage());
+        }catch(ClassNotFoundException cnf){
+            System.out.println(cnf.getMessage());
         }
     }
 
@@ -34,6 +47,6 @@ public class dbquery{
             }
         }
         
-        infile = new File(args[0]);
+        inFile = new File(args[0]);
     }
 }
