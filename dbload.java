@@ -127,6 +127,15 @@ class Record implements Serializable{
         BN_STATUS = status;
     }
 
+    public String getBN_NAME(){return BN_NAME;}
+    public String getBN_REG_DT(){return BN_REG_DT;}
+    public String getBN_CANCEL_DT(){return BN_CANCEL_DT;}
+    public String getBN_RENEW_DT(){return BN_RENEW_DT;}
+    public String getBN_STATE_NUM(){return BN_STATE_NUM;}
+    public String getBN_STATE_OF_REG(){return BN_STATE_OF_REG;}
+    public String getBN_ABN(){return BN_ABN;}
+    public boolean getBN_STATUS(){return BN_STATUS;}
+
     public void setCancelDate(String input){
         BN_CANCEL_DT = input;
     }

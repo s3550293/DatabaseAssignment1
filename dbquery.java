@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class dbquery{
     private static File inFile = null;
     private static int pagesize = 32768;
+    private static String find = null;
     private static ArrayList<Page> heap = new ArrayList<Page>();
     private static ExecutionTimer timer = new ExecutionTimer();
 
@@ -39,10 +40,23 @@ public class dbquery{
         }
     }
 
-    private static void searchResulkt(){
+    private static void search(){
+        for(Page p:heap){
+            for(Record r:p.records){
+                if(r.getBN_NAME().toLowerCase().contains(find.toLowerCase())){
+                    // System.out.printf("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n","","BN_STATUS","BN_REG_DT","BN_CANCEL_DT","BN_RENEW_DT","BN_STATE_NUM","BN_STATE_OF_REG","BN_ABN");
+                    System.out.println("Found");
+                }
+            }
+        }
+    }
+
+    private static void searchResult(){
         System.out.printf("## stdout ##\n");
         System.out.printf("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n","BN_NAME","BN_STATUS","BN_REG_DT","BN_CANCEL_DT","BN_RENEW_DT","BN_STATE_NUM","BN_STATE_OF_REG","BN_ABN");
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------");
+        search();
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 
     //MAIN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,10 +65,12 @@ public class dbquery{
             try{
                 pagesize = convert(args[1]);
                 inFile = new File("heap."+pagesize);
+                find = args[0];
             }catch(java.lang.NumberFormatException pe){
                 System.out.println(pe.getMessage());
             }
         }
         readArray();
+        searchResult();
     }
 }
