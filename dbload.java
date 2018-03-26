@@ -53,6 +53,7 @@ public class dbload implements Serializable {
                 
                 if(page.getSize()+record.alloctionSize() < pageSize){
                     page.addRecord(record);
+                    System.out.println(record);
                 }else{
                     numPage++;
                     heap.add(page);
@@ -175,9 +176,11 @@ class Record implements Serializable{
         return value;
     }
 
+    public String toString(){
+        return getBN_NAME();
+    }
+
 }
-
-
 
 class Page implements Serializable{
     ArrayList<Record> records = null;
@@ -207,34 +210,26 @@ class Page implements Serializable{
 }
 
 
-//Used to calculate the size of each type, this is rough yes.
 class PrimitiveSizeFetcher{
     static int memSize(byte x) {
-        // System.out.println("Size of byte: " + (Byte.SIZE/8) + " bytes.");
         return (Byte.SIZE/8);
     }
     static int memSize(int x) {
-        // System.out.println("Size of int: " + (Integer.SIZE/8) + " bytes.");
         return (Integer.SIZE/8);
     }
     static int memSize(String x) {
-        // System.out.println("Size of String: " + (8 * (int) ((((x.length()) * 2) + 45) / 8)) + " bytes.");
         return (8 * (int) ((((x.length()) * 2) + 45) / 8));
     }
     static int memSize(float x) {
-        // System.out.println("Size of float: " + (Float.SIZE/8) + " bytes.");
         return (Float.SIZE/8);
     }
     static int memSize(double x) {
-        // System.out.println("Size of double: " + (Double.SIZE/8) + " bytes.");
         return (Double.SIZE/8);
     }
     static int memSize(char x) {
-        // System.out.println("Size of char: " + (Character.SIZE/8) + " bytes.");
         return (Character.SIZE/8);
     }
     static int memSize(boolean x) {
-        // System.out.println("Size of char: " + 16 + " bytes.");
         return 16;
     }
 }
