@@ -27,6 +27,7 @@ public class dbquery{
                 try{
                     page = (Page)stream.readObject();
                 }catch(EOFException e){
+                    System.out.println(e.getMessage());
                     break;
                 }
                 heap.add(page);
