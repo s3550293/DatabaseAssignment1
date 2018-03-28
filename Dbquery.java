@@ -47,7 +47,14 @@ public class dbquery{
             for(Record r:p.records){
                 numRecords++;
                 if(r.getBN_NAME().toLowerCase().contains(find.toLowerCase())){
-                    System.out.printf("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n",r.getBN_NAME(),r.getBN_STATUS(),r.getBN_REG_DT(),r.getBN_CANCEL_DT(),r.getBN_RENEW_DT(),r.getBN_STATE_NUM(),r.getBN_STATE_OF_REG(),r.getBN_ABN());
+                    System.out.printf("%-50s",r.getBN_NAME());
+                    System.out.printf("%-20s",r.getBN_STATUS());
+                    System.out.printf("%-20s",r.getBN_REG_DT());
+                    System.out.printf("%-20s",r.getBN_CANCEL_DT());
+                    System.out.printf("%-20s",r.getBN_RENEW_DT());
+                    System.out.printf("%-20s",r.getBN_STATE_NUM());
+                    System.out.printf("%-20s",r.getBN_STATE_OF_REG());
+                    System.out.printf("%-20s\n",r.getBN_ABN());
                 }
             }
         }
@@ -66,12 +73,12 @@ public class dbquery{
 
     private static void searchResult(){
         System.out.printf("## stdout ##\n");
-        System.out.printf("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n","BN_NAME","BN_STATUS","BN_REG_DT","BN_CANCEL_DT","BN_RENEW_DT","BN_STATE_NUM","BN_STATE_OF_REG","BN_ABN");
-        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%-50s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n","BN_NAME","BN_STATUS","BN_REG_DT","BN_CANCEL_DT","BN_RENEW_DT","BN_STATE_NUM","BN_STATE_OF_REG","BN_ABN");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         timer.start();
         search();
         timer.end();
-        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.printf("Time taken: %d milliseconds\n",timer.duration());
         System.out.printf("Number of Records: %d\n",numRecords);
     }
