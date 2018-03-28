@@ -1,11 +1,29 @@
-public class Page{
-    public Page pp = null;
-    public Page np = null;
-    public Record[] records = null;
-    public int pageSize = 0;
+import java.util.ArrayList;
+import java.io.Serializable;
 
-    public Page(int _pageSize){
-        pageSize = _pageSize;
-        records = new Record[pageSize/550];
+class Page implements Serializable{
+    ArrayList<Record> records = null;
+    int pageSize = 0;
+    static int pageNum = 0;
+    Page(int size){
+        records = new ArrayList<>();
+        pageSize = size;
+        pageNum++;
+    }
+
+    public void addRecord(Record readIn){
+        records.add(readIn);
+    }
+
+    public ArrayList<Record> getArray(){return records;}
+
+    public int getNum(){return pageNum;}
+
+    public long getSize(){
+        int value = 0;
+        for(Record record : records){
+            value += record.alloctionSize();
+        }
+        return value;
     }
 }
